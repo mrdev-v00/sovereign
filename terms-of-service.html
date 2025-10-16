@@ -404,15 +404,14 @@
     <!-- Header -->
     <header>
         <div class="container header-content">
-            <a href="https://mrdev-v00.github.io/sovereign/" class="logo-container">
+            <a href="https://mrdev-v00.github.io/sovereign/index.html" class="logo-container">
                 <img src="https://github.com/mrdev-v00/sovereign/blob/main/Untitled%20design.png?raw=true" alt="Sovereign Logo" class="logo-img">
                 <div class="logo-text">Sovereign</div>
             </a>
             <nav>
                 <ul>
-                    <li><a href="https://mrdev-v00.github.io/sovereign/terms-of-service">Home</a></li>
+                    <li><a href="https://mrdev-v00.github.io/sovereign/index.html">Home</a></li>
                     <li><a href="https://mrdev-v00.github.io/sovereign/documentation">Documentation</a></li>
-                    <li><a href="https://mrdev-v00.github.io/sovereign/privacy-policy">Privacy</a></li>
                 </ul>
             </nav>
             <a href="https://discord.com/oauth2/authorize?client_id=1427334099198279821" class="cta-button" target="_blank">Invite Bot</a>
@@ -495,7 +494,8 @@
 
                 <div class="terms-section">
                     <h3>6. Contact Information</h3>
-                    <p>If you have any questions about these Terms of Service, please contact us through our support server or via the contact information provided in our documentation.</p>
+                    <p>If you have any questions about these Terms of Service, please contact us through our support server:</p>
+                    <p><a href="https://discord.gg/hbMkrYtQQQ" style="color: var(--electric-cyan);">https://discord.gg/hbMkrYtQQQ</a></p>
                     <p><strong>Last Updated:</strong> October 15, 2023</p>
                 </div>
             </div>
@@ -551,16 +551,15 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h3>Legal</h3>
+                    <h3>Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="https://mrdev-v00.github.io/sovereign/terms">Terms of Service</a></li>
-                        <li><a href="https://mrdev-v00.github.io/sovereign/privacy">Privacy Policy</a></li>
+                        <li><a href="https://mrdev-v00.github.io/sovereign/documentation">Documentation</a></li>
+                        <li><a href="https://github.com/mrdev-v00/sovereign">GitHub Repository</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Support</h3>
                     <ul class="footer-links">
-                        <li><a href="https://mrdev-v00.github.io/sovereign/documentation">Documentation</a></li>
                         <li><a href="https://discord.gg/hbMkrYtQQQ" target="_blank">Support Server</a></li>
                         <li><a href="https://discord.com/oauth2/authorize?client_id=1427334099198279821" target="_blank">Invite Bot</a></li>
                     </ul>
@@ -581,22 +580,6 @@
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
         });
 
         // Initialize with header state
