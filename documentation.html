@@ -40,86 +40,39 @@
         }
 
         /* Header Styles */
-        header {
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background: rgba(5, 5, 16, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
-            transition: all 0.3s ease;
-        }
+header {
+    padding: 10px 0; /* reduced padding */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(5, 5, 16, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+    transition: all 0.3s ease;
+}
 
-        header.scrolled {
-            padding: 15px 0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
+header.scrolled {
+    padding: 8px 0; /* smaller when scrolled */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.logo-text {
+    font-size: 20px; /* smaller font */
+    font-weight: 700;
+    background: linear-gradient(to right, var(--silver-white), var(--electric-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+nav ul {
+    gap: 20px; /* less space between links */
+}
 
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--deep-navy), var(--electric-cyan));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
+nav a {
+    font-size: 14px; /* slightly smaller text */
+}
 
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--silver-white);
-            border-radius: 50%;
-            box-sizing: border-box;
-        }
-
-        .logo-icon::after {
-            content: 'S';
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--silver-white);
-            z-index: 2;
-        }
-
-        .logo-text {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(to right, var(--silver-white), var(--electric-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            color: var(--silver-white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
 
         nav a:hover {
             color: var(--electric-cyan);
