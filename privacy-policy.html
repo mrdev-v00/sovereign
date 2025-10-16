@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Sovereign Discord Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --deep-navy: #0A1128;
+            --royal-purple: #2A1A5E;
+            --near-black: #050510;
+            --electric-cyan: #00F5FF;
+            --silver-white: #E0E0E0;
+            --discord-blurple: #5865F2;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--deep-navy), var(--royal-purple), var(--near-black));
+            color: var(--silver-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 16, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--deep-navy), var(--electric-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--silver-white);
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .logo-icon::after {
+            content: 'S';
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--silver-white);
+            z-index: 2;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--silver-white), var(--electric-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--silver-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--electric-cyan);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--electric-cyan);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--discord-blurple), var(--royal-purple));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Hero Section */
+        .privacy-hero {
+            padding: 180px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .privacy-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(42, 26, 94, 0.4) 0%, rgba(5, 5, 16, 0) 70%);
+            z-index: -1;
+        }
+
+        .privacy-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--silver-white), var(--electric-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .privacy-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #ccc;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Privacy Policy Section */
+        .privacy-policy {
+            padding: 80px 0;
+            background: rgba(5, 5, 16, 0.7);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--electric-cyan);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .policy-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(10, 17, 40, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(224, 224, 224, 0.1);
+        }
+
+        .policy-section {
+            margin-bottom: 40px;
+        }
+
+        .policy-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--electric-cyan);
+            border-bottom: 1px solid rgba(224, 224, 224, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .policy-section p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .policy-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .policy-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .policy-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .policy-section th, .policy-section td {
+            border: 1px solid rgba(224, 224, 224, 0.2);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .policy-section th {
+            background-color: rgba(42, 26, 94, 0.3);
+            color: var(--electric-cyan);
+        }
+
+        .policy-section tr:nth-child(even) {
+            background-color: rgba(10, 17, 40, 0.5);
+        }
+
+        .highlight {
+            background-color: rgba(0, 245, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--electric-cyan);
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 16, 0.9);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--electric-cyan);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--electric-cyan);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .privacy-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .policy-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .privacy-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .policy-section table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">Sovereign</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#modules">Modules</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                    <li><a href="privacy.html" style="color: var(--electric-cyan);">Privacy</a></li>
+                </ul>
+            </nav>
+            <button class="cta-button">Invite Bot</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="privacy-hero">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy and data security are our top priorities. Learn how Sovereign collects, uses, and protects your information.</p>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Section -->
+    <section class="privacy-policy">
+        <div class="container">
+            <h2 class="section-title">Our Privacy Commitment</h2>
+            <div class="policy-content">
+                <div class="policy-section">
+                    <h3>1. Introduction</h3>
+                    <p>This Privacy Policy explains how Sovereign ("we", "our", or "us") collects, uses, and protects information when you use our Discord bot. By using Sovereign, you agree to the collection and use of information in accordance with this policy.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>2. Information We Collect</h3>
+                    <p>Sovereign collects the following types of information to provide and improve our services:</p>
+                    
+                    <h4>2.1 Discord Server Information</h4>
+                    <ul>
+                        <li>Server ID, name, and icon</li>
+                        <li>Channel IDs and names</li>
+                        <li>Role IDs and permissions</li>
+                        <li>Server settings and configuration</li>
+                    </ul>
+                    
+                    <h4>2.2 User Information</h4>
+                    <ul>
+                        <li>User IDs and usernames</li>
+                        <li>User roles and permissions within your server</li>
+                        <li>Message IDs (for moderation and logging purposes)</li>
+                    </ul>
+                    
+                    <h4>2.3 Operational Data</h4>
+                    <ul>
+                        <li>Command usage statistics</li>
+                        <li>Error logs and performance metrics</li>
+                        <li>Temporary cache data for functionality</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <p><strong>Important:</strong> We do not collect or store message content unless explicitly required for specific features (such as moderation logs or custom commands) that you enable in your server.</p>
+                    </div>
+                </div>
+
+                <div class="policy-section">
+                    <h3>3. How We Use Your Information</h3>
+                    <p>We use the collected information for the following purposes:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Purpose</th>
+                                <th>Information Used</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Providing Bot Functionality</td>
+                                <td>Server ID, User IDs, Channel IDs</td>
+                            </tr>
+                            <tr>
+                                <td>Moderation & Security</td>
+                                <td>User IDs, Message IDs, Server settings</td>
+                            </tr>
+                            <tr>
+                                <td>Personalization</td>
+                                <td>Server configuration, User preferences</td>
+                            </tr>
+                            <tr>
+                                <td>Analytics & Improvement</td>
+                                <td>Command usage, Performance metrics</td>
+                            </tr>
+                            <tr>
+                                <td>Troubleshooting</td>
+                                <td>Error logs, Temporary cache data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="policy-section">
+                    <h3>4. Data Storage and Security</h3>
+                    <p>We implement appropriate security measures to protect your information:</p>
+                    <ul>
+                        <li><strong>Encryption:</strong> All data is encrypted in transit using SSL/TLS protocols</li>
+                        <li><strong>Secure Storage:</strong> Data is stored on secure servers with limited access</li>
+                        <li><strong>Data Minimization:</strong> We only collect data necessary for bot functionality</li>
+                        <li><strong>Regular Audits:</strong> Our security practices are regularly reviewed and updated</li>
+                    </ul>
+                    
+                    <p><strong>Retention Period:</strong> We retain data only as long as necessary to provide our services. When you remove Sovereign from your server, associated data is scheduled for deletion within 30 days.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>5. Data Sharing and Disclosure</h3>
+                    <p>We do not sell, trade, or otherwise transfer your personal information to third parties. Exceptions include:</p>
+                    <ul>
+                        <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+                        <li><strong>Service Providers:</strong> Trusted third parties who assist in operating our service (subject to confidentiality agreements)</li>
+                        <li><strong>Business Transfers:</strong> In connection with a merger or acquisition</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h3>6. Your Rights and Choices</h3>
+                    <p>You have the following rights regarding your data:</p>
+                    <ul>
+                        <li><strong>Access:</strong> Request information about what data we have stored</li>
+                        <li><strong>Correction:</strong> Request correction of inaccurate data</li>
+                        <li><strong>Deletion:</strong> Request deletion of your data</li>
+                        <li><strong>Opt-out:</strong> Stop using the bot or remove it from your server</li>
+                    </ul>
+                    
+                    <p>To exercise these rights, contact us through our support server or via the contact information provided below.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>7. Third-Party Services</h3>
+                    <p>Sovereign may interact with the following third-party services:</p>
+                    <ul>
+                        <li><strong>Discord API:</strong> For bot functionality and integration</li>
+                        <li><strong>Hosting Providers:</strong> For server infrastructure</li>
+                        <li><strong>Analytics Services:</strong> For performance monitoring (anonymous data only)</li>
+                    </ul>
+                    
+                    <p>These services have their own privacy policies, and we recommend reviewing them.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>8. International Data Transfers</h3>
+                    <p>Your information may be transferred to and maintained on computers located outside of your state, province, country, or other governmental jurisdiction where the data protection laws may differ. By using Sovereign, you consent to this transfer.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>9. Children's Privacy</h3>
+                    <p>Our service is not directed to individuals under the age of 13. We do not knowingly collect personal information from children under 13. If you become aware that a child has provided us with personal information, please contact us.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>10. Changes to This Privacy Policy</h3>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "last updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+                    
+                    <p><strong>Last Updated:</strong> October 15, 2023</p>
+                </div>
+
+                <div class="policy-section">
+                    <h3>11. Contact Us</h3>
+                    <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                    <ul>
+                        <li>Join our Discord support server</li>
+                        <li>Email: privacy@sovereignbot.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sovereign</h3>
+                    <p>The ultimate all-in-one Discord bot with enterprise-level security and powerful management tools.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="#">Data Processing Agreement</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Support Server</a></li>
+                        <li><a href="#">Report Issue</a></li>
+                        <li><a href="#">Feature Request</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Sovereign Bot. All rights reserved. This product is not affiliated with Discord Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Policy section animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `fadeInUp 0.8s ease ${entry.target.dataset.delay || '0s'} both`;
+                }
+            });
+        }, observerOptions);
+
+        // Observe policy sections
+        document.querySelectorAll('.policy-section').forEach((el, index) => {
+            el.dataset.delay = `${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // CTA button interactions
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Initialize with header state
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
