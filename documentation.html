@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Sovereign Discord Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --deep-navy: #0A1128;
+            --royal-purple: #2A1A5E;
+            --near-black: #050510;
+            --electric-cyan: #00F5FF;
+            --silver-white: #E0E0E0;
+            --discord-blurple: #5865F2;
+            --success-green: #43b581;
+            --warning-orange: #faa61a;
+            --danger-red: #f04747;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--deep-navy), var(--royal-purple), var(--near-black));
+            color: var(--silver-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 5, 16, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--deep-navy), var(--electric-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--silver-white);
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .logo-icon::after {
+            content: 'S';
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--silver-white);
+            z-index: 2;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--silver-white), var(--electric-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--silver-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--electric-cyan);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--electric-cyan);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--discord-blurple), var(--royal-purple));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Documentation Hero */
+        .docs-hero {
+            padding: 180px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .docs-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(42, 26, 94, 0.4) 0%, rgba(5, 5, 16, 0) 70%);
+            z-index: -1;
+        }
+
+        .docs-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--silver-white), var(--electric-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .docs-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #ccc;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Documentation Layout */
+        .docs-container {
+            display: flex;
+            gap: 40px;
+            padding: 40px 0;
+        }
+
+        .docs-sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 120px;
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+            background: rgba(10, 17, 40, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(224, 224, 224, 0.1);
+        }
+
+        .docs-sidebar h3 {
+            color: var(--electric-cyan);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-nav a {
+            color: var(--silver-white);
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(42, 26, 94, 0.5);
+            color: var(--electric-cyan);
+        }
+
+        .docs-content {
+            flex: 1;
+            background: rgba(10, 17, 40, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(224, 224, 224, 0.1);
+        }
+
+        .docs-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 120px;
+        }
+
+        .docs-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--electric-cyan);
+            border-bottom: 1px solid rgba(224, 224, 224, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .docs-section h3 {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            color: var(--electric-cyan);
+        }
+
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(5, 5, 16, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .command-table th {
+            background: rgba(42, 26, 94, 0.7);
+            color: var(--electric-cyan);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .command-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+        }
+
+        .command-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .command-table tr:hover {
+            background: rgba(42, 26, 94, 0.3);
+        }
+
+        .command {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: var(--electric-cyan);
+        }
+
+        .example {
+            font-family: 'Courier New', monospace;
+            color: #aaa;
+        }
+
+        .info-box {
+            background: rgba(0, 245, 255, 0.1);
+            border-left: 4px solid var(--electric-cyan);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: rgba(240, 71, 71, 0.1);
+            border-left: 4px solid var(--danger-red);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(67, 181, 129, 0.1);
+            border-left: 4px solid var(--success-green);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: var(--electric-cyan);
+            color: var(--deep-navy);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .config-table th, .config-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+        }
+
+        .config-table th {
+            background: rgba(42, 26, 94, 0.5);
+            color: var(--electric-cyan);
+        }
+
+        .recommended {
+            color: var(--success-green);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 16, 0.9);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--electric-cyan);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--electric-cyan);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(224, 224, 224, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .docs-container {
+                flex-direction: column;
+            }
+            
+            .docs-sidebar {
+                position: relative;
+                top: 0;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .docs-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .command-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .docs-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .docs-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">Sovereign</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#modules">Modules</a></li>
+                    <li><a href="documentation.html" style="color: var(--electric-cyan);">Documentation</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </nav>
+            <a href="https://discord.com/oauth2/authorize?client_id=YOUR_BOT_ID&permissions=8&scope=bot%20applications.commands" class="cta-button" target="_blank">Invite Bot</a>
+        </div>
+    </header>
+
+    <!-- Documentation Hero -->
+    <section class="docs-hero">
+        <div class="container">
+            <h1>Sovereign Documentation</h1>
+            <p>Complete guide to setting up and using Sovereign's powerful features</p>
+            <a href="#setup-guide" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Documentation Content -->
+    <div class="container docs-container">
+        <!-- Sidebar Navigation -->
+        <div class="docs-sidebar">
+            <h3>Documentation</h3>
+            <ul class="sidebar-nav">
+                <li><a href="#setup-guide" class="active">Setup Guide</a></li>
+                <li><a href="#antinuke-commands">AntiNuke Commands</a></li>
+                <li><a href="#wizard-commands">Wizard Commands</a></li>
+                <li><a href="#utility-commands">Utility Commands</a></li>
+                <li><a href="#security-config">Security Configuration</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="docs-content">
+            <!-- Setup Guide -->
+            <section id="setup-guide" class="docs-section">
+                <h2>Getting Started with Sovereign</h2>
+                <p>Welcome to Sovereign! This guide will help you set up the bot for maximum security and functionality.</p>
+                
+                <div class="info-box">
+                    <p><strong>Note:</strong> Sovereign requires Administrator permissions to function properly. Make sure to grant these when inviting the bot.</p>
+                </div>
+
+                <h3>Quick Start</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Invite Sovereign to Your Server</h4>
+                        <p>Use the invite link with Administrator permissions. The bot will automatically create necessary roles and channels.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Run the Setup Wizard</h4>
+                        <p>Use the command <span class="command">wizard</span> to interactively configure all modules.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Enable AntiNuke Protection</h4>
+                        <p>Run <span class="command">antinuke enable</span> to activate the core security system.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Configure Whitelist</h4>
+                        <p>Add trusted users with <span class="command">whitelist add @User</span> to prevent false positives.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AntiNuke Commands -->
+            <section id="antinuke-commands" class="docs-section">
+                <h2>AntiNuke Commands</h2>
+                <p>The AntiNuke system protects your server from malicious actions and unauthorized changes.</p>
+
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="command">antinuke</span></td>
+                            <td>Opens control panel to enable/disable AntiNuke</td>
+                            <td><span class="example">antinuke</span> or <span class="example">antinuke enable</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">antinuke status</span></td>
+                            <td>Shows if AntiNuke is enabled or disabled</td>
+                            <td><span class="example">antinuke status</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">antinuke enable</span></td>
+                            <td>Enables the AntiNuke module</td>
+                            <td><span class="example">antinuke enable</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">antinuke disable</span></td>
+                            <td>Disables the AntiNuke module</td>
+                            <td><span class="example">antinuke disable</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">autobackup &lt;off|seconds&gt;</span></td>
+                            <td>Sets automatic backup interval or disables it</td>
+                            <td><span class="example">autobackup 5</span> or <span class="example">autobackup off</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">backup</span></td>
+                            <td>Forces a manual backup of the current server setup</td>
+                            <td><span class="example">backup</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">whitelist add &lt;user&gt;</span></td>
+                            <td>Adds a trusted user to the whitelist</td>
+                            <td><span class="example">whitelist add @User</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">whitelist remove &lt;user&gt;</span></td>
+                            <td>Removes a user from the whitelist</td>
+                            <td><span class="example">whitelist remove @User</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">whitelist list</span></td>
+                            <td>Lists all whitelisted users</td>
+                            <td><span class="example">whitelist list</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">quarantine</span></td>
+                            <td>Lists all users currently quarantined</td>
+                            <td><span class="example">quarantine</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">quarantine remove &lt;user&gt;</span></td>
+                            <td>Unquarantines a user manually</td>
+                            <td><span class="example">quarantine remove @User</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Wizard Commands -->
+            <section id="wizard-commands" class="docs-section">
+                <h2>Wizard Commands</h2>
+                <p>Interactive setup and management commands for easy configuration.</p>
+
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="command">wizard</span></td>
+                            <td>Opens interactive setup for configuring server modules</td>
+                            <td><span class="example">wizard</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">check</span></td>
+                            <td>Performs diagnostic check for AntiNuke, permissions, and backup folders</td>
+                            <td><span class="example">check</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">channellist</span></td>
+                            <td>Lists all text and voice channels</td>
+                            <td><span class="example">channellist</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">rolelist</span></td>
+                            <td>Lists all roles and their permissions</td>
+                            <td><span class="example">rolelist</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">roleadd &lt;name&gt;</span></td>
+                            <td>Creates a new role</td>
+                            <td><span class="example">roleadd Moderator</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">textchanneladd &lt;name&gt;</span></td>
+                            <td>Creates a new text channel</td>
+                            <td><span class="example">textchanneladd logs</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Utility Commands -->
+            <section id="utility-commands" class="docs-section">
+                <h2>Utility Commands</h2>
+                <p>General utility commands for bot management and convenience.</p>
+
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="command">noprefix add &lt;user&gt;</span></td>
+                            <td>Allows a user to use commands without prefix</td>
+                            <td><span class="example">noprefix add @User</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">noprefix list</span></td>
+                            <td>Lists all users who can use commands without prefix</td>
+                            <td><span class="example">noprefix list</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="command">ping</span></td>
+                            <td>Checks bot latency and connection speed</td>
+                            <td><span class="example">ping</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Security Configuration -->
+            <section id="security-config" class="docs-section">
+                <h2>Security Configuration Guide</h2>
+                <p>Follow this step-by-step guide to make Sovereign fully protect your server.</p>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Enable AntiNuke</h4>
+                        <p>Run <span class="command">antinuke enable</span> to activate protection.</p>
+                        <div class="info-box">
+                            <p>Sovereign will start monitoring all major events: channel delete/create, role delete/create, webhook spam, mass bans/kicks. If anyone not in whitelist performs these actions, they are quarantined instantly and their actions are reverted.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Set AutoBackup Interval</h4>
+                        <p>Run <span class="command">autobackup 10</span> to save your guild structure every 10 seconds.</p>
+                        <div class="info-box">
+                            <p>Saves your entire guild structure (channels, roles, etc.). You can turn it off for large guilds with <span class="command">autobackup off</span>. Manual backup anytime with <span class="command">backup</span>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Whitelist Trusted Users</h4>
+                        <p>Add trusted administrators with <span class="command">whitelist add @User</span>.</p>
+                        <div class="warning-box">
+                            <p>Only whitelisted users can safely perform critical actions (delete/create channels, roles, etc.). Anyone else doing so triggers quarantine.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Use Quarantine System Wisely</h4>
+                        <p>Check quarantined users with <span class="command">quarantine</span> and unquarantine with <span class="command">quarantine remove @User</span>.</p>
+                        <div class="info-box">
+                            <p>This removes their restricted role and restores normal access. Use this command carefully to ensure you're not unquarantining a malicious user.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Test & Audit Regularly</h4>
+                        <p>Run <span class="command">check</span> to perform system diagnostics.</p>
+                        <div class="success-box">
+                            <p>Ensures all modules (AntiNuke, Backup, Whitelist, Quarantine) are loaded correctly and verifies file integrity and permissions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Optional Wizard Setup</h4>
+                        <p>Use <span class="command">wizard</span> for guided configuration.</p>
+                        <div class="info-box">
+                            <p>Helps you configure everything in an easy menu: default backup interval, quarantine role setup, whitelist management.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Recommended Secure Configuration</h3>
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Recommendation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AntiNuke</td>
+                            <td class="recommended">✅ Enabled</td>
+                        </tr>
+                        <tr>
+                            <td>AutoBackup</td>
+                            <td class="recommended">Every 5-10s for small servers, 10-30s for large ones</td>
+                        </tr>
+                        <tr>
+                            <td>Whitelist</td>
+                            <td class="recommended">Only 1-2 trusted owners</td>
+                        </tr>
+                        <tr>
+                            <td>Quarantine Role</td>
+                            <td class="recommended">Minimal permissions, no send/manage perms</td>
+                        </tr>
+                        <tr>
+                            <td>Manual Backup</td>
+                            <td class="recommended">Run daily for safety</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="docs-section">
+                <h2>Troubleshooting</h2>
+                <p>Common issues and their solutions.</p>
+
+                <h3>Bot Not Responding</h3>
+                <ul>
+                    <li>Check if the bot has necessary permissions</li>
+                    <li>Verify the command prefix is correct</li>
+                    <li>Ensure the bot is online and not experiencing downtime</li>
+                </ul>
+
+                <h3>AntiNuke Not Working</h3>
+                <ul>
+                    <li>Run <span class="command">antinuke status</span> to check if it's enabled</li>
+                    <li>Verify the bot has Administrator permissions</li>
+                    <li>Check if the user performing actions is whitelisted</li>
+                </ul>
+
+                <h3>Backup Issues</h3>
+                <ul>
+                    <li>Ensure there's enough storage space</li>
+                    <li>Check file permissions for the backup directory</li>
+                    <li>Verify the backup interval is set correctly</li>
+                </ul>
+
+                <div class="info-box">
+                    <p>If you're still experiencing issues, join our support server for assistance from our team and community.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Sovereign</h3>
+                    <p>The ultimate all-in-one Discord bot with enterprise-level security and powerful management tools.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Documentation</h3>
+                    <ul class="footer-links">
+                        <li><a href="#setup-guide">Setup Guide</a></li>
+                        <li><a href="#antinuke-commands">AntiNuke Commands</a></li>
+                        <li><a href="#wizard-commands">Wizard Commands</a></li>
+                        <li><a href="#security-config">Security Configuration</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.gg/YOUR_INVITE_CODE" target="_blank">Support Server</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="status.html">Status Page</a></li>
+                        <li><a href="https://github.com/yourusername/sovereign" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Sovereign Bot. All rights reserved. This product is not affiliated with Discord Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Update active sidebar link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.docs-section');
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize with header state
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
